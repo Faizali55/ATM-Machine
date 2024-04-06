@@ -3,9 +3,25 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 
 let MyBalance: number = 10000;
+let Username: string = "Faiz Ali";
 let MyPin: number = 102030;
 
-console.log(chalk.yellow("\n\t<<<<<Wellcome To CodeWithFaiz--ATM-Machine>>>>>\n"));
+console.log(
+  chalk.yellow("\n\t<<<<<Wellcome To CodeWithFaiz--ATM-Machine>>>>>\n")
+);
+
+let UserAns = await inquirer.prompt([
+  {
+    name: "user",
+    type: "string",
+    message: "Enter Your User Name:",
+  },
+]);
+if (UserAns.user === Username) {
+  console.log(chalk.blueBright("\nYour User Name Is Correct.\n"));
+} else {
+  console.log(chalk.red("\nInvalid User Name!!!!\n"));
+}
 
 let pinAns = await inquirer.prompt([
   {
@@ -24,7 +40,7 @@ if (pinAns.pin === MyPin) {
       choices: ["Withdraw Cash", "Balance Check"],
     },
   ]);
-  if (operaAns.operations ==="Withdraw Cash") {
+  if (operaAns.operations === "Withdraw Cash") {
     let WithdrawAns = await inquirer.prompt([
       {
         name: "withdrawmethod",
@@ -33,7 +49,7 @@ if (pinAns.pin === MyPin) {
         message: "Select Your Withdraw Operations:\n",
       },
     ]);
-    if (WithdrawAns.withdrawmethod ==="Fast Cash") {
+    if (WithdrawAns.withdrawmethod === "Fast Cash") {
       let fastcashAns = await inquirer.prompt([
         {
           name: "fastcash",
@@ -49,8 +65,12 @@ if (pinAns.pin === MyPin) {
         console.log(chalk.red("\n\nInsufficient Balance!!!!!"));
       } else {
         MyBalance -= fastcashAns.fastcash;
-        console.log(chalk.green(`\n  ${fastcashAns.fastcash} Rs Successfully Withdraw.`));
-        console.log(chalk.greenBright(`\nYour Remaining Balance Is = ${MyBalance}`));
+        console.log(
+          chalk.green(`\n  ${fastcashAns.fastcash} Rs Successfully Withdraw.`)
+        );
+        console.log(
+          chalk.greenBright(`\nYour Remaining Balance Is = ${MyBalance}`)
+        );
       }
     } else if (WithdrawAns.withdrawmethod === "Enter Amount") {
       let AmountAns = await inquirer.prompt([
@@ -60,17 +80,22 @@ if (pinAns.pin === MyPin) {
           message: "Enter Your Amount To Withdraw:",
         },
       ]);
+
       if (AmountAns.amount > MyBalance) {
         console.log(chalk.red("\n\nInsufficient Balance!!!!!"));
       } else {
         MyBalance -= AmountAns.amount;
-        console.log(chalk.green(`\n  ${AmountAns.amount} Rs Successfully Withdraw.`));
-        console.log(chalk.greenBright(`\nYour Remaining Balance Is = ${MyBalance}`));
+        console.log(
+          chalk.green(`\n  ${AmountAns.amount} Rs Successfully Withdraw.`)
+        );
+        console.log(
+          chalk.greenBright(`\nYour Remaining Balance Is = ${MyBalance}`)
+        );
       }
     }
   } else if (operaAns.operations === "Balance Check") {
     console.log(chalk.greenBright(`\nYour Balance Is ${MyBalance}`));
   }
-}else{
-    console.log(chalk.bold.red("\n\nYour Pin Incorrect ! Try Again."))
+} else {
+  console.log(chalk.bold.red("\n\nYour Pin Incorrect ! Try Again."));
 }

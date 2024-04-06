@@ -2,14 +2,28 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 let MyBalance = 10000;
+let Username = "Faiz Ali";
 let MyPin = 102030;
 console.log(chalk.yellow("\n\t<<<<<Wellcome To CodeWithFaiz--ATM-Machine>>>>>\n"));
+let UserAns = await inquirer.prompt([
+    {
+        name: "user",
+        type: "string",
+        message: "Enter Your User Name:",
+    }
+]);
+if (UserAns.user === Username) {
+    console.log(chalk.blueBright("\nYour User Name Is Correct.\n"));
+}
+else {
+    console.log(chalk.red("\nInvalid User Name!!!!\n"));
+}
 let pinAns = await inquirer.prompt([
     {
         name: "pin",
         type: "number",
         message: "Enter Your Pin Code:",
-    },
+    }
 ]);
 if (pinAns.pin === MyPin) {
     console.log(chalk.blueBright("\nYour Pin Is Correct,Login Successfully\n"));
